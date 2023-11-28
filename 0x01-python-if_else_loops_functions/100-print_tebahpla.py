@@ -4,7 +4,7 @@ def print_reverse_alphabet():
         letter = chr(ascii_code)
         if 'a' <= letter <= 'z':
             print("{}".format(
-                letter.upper() if (ascii_code - ord('z')) % 2 == 0 else letter
+                letter.upper() if (ascii_code - ord('A')) % 2 == 0 else letter
             ), end='')
 
 print_reverse_alphabet()

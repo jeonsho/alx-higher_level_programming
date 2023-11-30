@@ -4,7 +4,7 @@ if __name__ == "__main__":
     a = 10
     b = 5
 
-     result_add = add(a, b)
+    result_add = add(a, b)
     result_subtract = subtract(a, b)
     result_multiply = multiply(a, b)
     result_divide = divide(a, b)

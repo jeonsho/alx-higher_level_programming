@@ -70,4 +70,3 @@ class Square:
                 result.append("\n")
 
         return ''.join(result)
-

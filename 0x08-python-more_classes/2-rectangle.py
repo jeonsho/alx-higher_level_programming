@@ -20,22 +20,12 @@ class Rectangle:
 
     @property
     def width(self):
-        """
-        Retrieve the width of the rectangle.
-        """
+        """Retrieve the width of the rectangle."""
         return self.__width
 
     @width.setter
     def width(self, value):
-        """
-        Set the width of the rectangle.
-
-        Args:
-        value (int): The new width of the rectangle.
-        Raises:
-        TypeError: If the width is not an integer.
-        ValueError: If the width is less than 0.
-        """
+        """Set the width of the rectangle."""
         if not isinstance(value, int):
             raise TypeError("width must be an integer")
         if value < 0:
@@ -44,22 +34,12 @@ class Rectangle:
 
     @property
     def height(self):
-        """
-        Retrieve the height of the rectangle.
-        """
+        """Retrieve the height of the rectangle."""
         return self.__height
 
     @height.setter
     def height(self, value):
-        """
-        Set the height of the rectangle.
-
-        Args:
-        value (int): The new height of the rectangle.
-        Raises:
-        TypeError: If the height is not an integer.
-        ValueError: If the height is less than 0.
-        """
+        """Set the height of the rectangle."""
         if not isinstance(value, int):
             raise TypeError("height must be an integer")
         if value < 0:
@@ -67,9 +47,7 @@ class Rectangle:
         self.__height = value
 
     def area(self):
-        """
-        Calculate and return the area of the rectangle.
-        """
+        """Calculate and return the area of the rectangle."""
         return self.__width * self.__height
 
     def perimeter(self):
@@ -77,5 +55,7 @@ class Rectangle:
         Calculate and return the perimeter of the rectangle.
         If width or height is equal to 0, perimeter is equal to 0.
         """
+    if self.__width == 0 or self.__height == 0:
+        return 0
+    else:
         return 2 * (self.__width + self.__height)
-        if self.__width and self.__height else 0

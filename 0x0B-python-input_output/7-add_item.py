@@ -1,14 +1,16 @@
 #!/usr/bin/python3
 """
-This is a python script that adds all arguments to a Python list.
-The list is then saved to a file named 'add_item.json'.
+    This is a python script that adds all arguments to a Python List.
+    List is then saved to a file.
 """
 
 import sys
-from 5-save_to_json_file import save_to_json_file
-from 6-load_from_json_file import load_from_json_file
+save_to_json_file = __import__('5-save_to_json_file').save_to_json_file
+load_from_json_file = __import__('6-load_from_json_file').load_from_json_file
+
 
 if __name__ == "__main__":
+
     filename = "add_item.json"
 
     try:
@@ -16,5 +18,6 @@ if __name__ == "__main__":
     except FileNotFoundError:
         arg_list = []
 
-    arg_list.extend(sys.argv[1:])
+    for arg in sys.argv[1:]:
+        arg_list.append(arg)
     save_to_json_file(arg_list, filename)

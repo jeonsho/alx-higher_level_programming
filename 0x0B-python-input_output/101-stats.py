@@ -1,36 +1,46 @@
 #!/usr/bin/python3
-"""101-stats.py is a program that reads IP logs from stdin and
-prints metrics every ten lines or until EOF or Ctrl-C.
+"""
+Script reads stdin line by line and computes metrics
+Input format:
+<IP Address> - [<date>] "GET /projects/260 HTTP/1.1" <status code> <file size>
+Each 10 lines and after a keyboard interruption (CTRL + C),
+prints those statistics since the beginning:
+total file size and
+possible status code: 200, 301, 400, 401, 403, 404, 405 and 500
+format: File size: <total size>
+format: <status code (in ascending order)>: <number>
 """
 
 
-def print_dict_sorted_nonzero(status_codes):
-    """Subroutine to print status codes with nonzero value in
-    numericalorder.
-
-    Args:
-        status_codes (dict): dictionary of status codes and the
-            number of times each one has been returned.
-    """
-    sorted_keys = sorted(status_codes.keys())
-    print('\n'.join(["{:d}: {:d}".format(k, status_codes[k])
-                     for k in sorted_keys if status_codes[k] != 0]))
+import sys
 
 
-if __name__ == "__main__":
+def print_size_and_codes(size, stat_codes):
+    print("File size: {:d}".format(size))
+    for k, v in sorted(stat_codes.items()):
+        if v:
+            print("{:s}: {:d}".format(k, v))
 
-    import sys
+
+def parse_stdin_and_compute():
+    size = 0
+    lines = 0
+    stat_codes = {"200": 0, "301": 0, "400": 0, "401": 0,
+                  "403": 0, "404": 0, "405": 0, "500": 0}
     try:
-        total = 0
-        status_codes = \
-            {code: 0 for code in [200, 301, 400, 401, 403, 404, 405, 500]}
-        for n, line in enumerate(sys.stdin, 1):
-            words = line.split()
-            total += int(words[-1])
-            status_codes[int(words[-2])] += 1
-            if n % 10 == 0:
-                print("File size: {:d}".format(total))
-                print_dict_sorted_nonzero(status_codes)
-    finally:
-        print("File size: {:d}".format(total))
-        print_dict_sorted_nonzero(status_codes)
+        for line in sys.stdin:
+            fields = list(map(str, line.strip().split(" ")))
+            size += int(fields[-1])
+            if fields[-2] in stat_codes:
+                stat_codes[fields[-2]] += 1
+            lines += 1
+            if lines % 10 == 0:
+                print_size_and_codes(size, stat_codes)
+    except KeyboardInterrupt:
+        print_size_and_codes(size, stat_codes)
+        raise
+
+    print_size_and_codes(size, stat_codes)
+
+
+parse_stdin_and_compute()

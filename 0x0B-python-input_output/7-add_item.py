@@ -1,14 +1,15 @@
 #!/usr/bin/python3
-"""Module containing function to save python object in json format"""
-import json
+"""Add all arguments to a Python list and save them to a file."""
+import sys
 
+if __name__ == "__main__":
+    save_to_json_file = __import__('5-save_to_json_file').save_to_json_file
+    load_from_json_file = \
+        __import__('6-load_from_json_file').load_from_json_file
 
-def save_to_json_file(my_obj, filename):
-    """Convert `my_obj` to json string and save to `filename`
-
-    Args:
-        my_obj: serializable object to convert to json
-        filename (str): file to save json string to
-    """
-    with open(filename, 'w') as f:
-        json.dump(my_obj, f)
+    try:
+        items = load_from_json_file("add_item.json")
+    except FileNotFoundError:
+        items = []
+    items.extend(sys.argv[1:])
+    save_to_json_file(items, "add_item.json")

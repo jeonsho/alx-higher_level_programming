@@ -1,18 +1,14 @@
 #!/usr/bin/python3
-'''
-Write a function that writes an
-Object to a text file, using a
-JSON representation
-'''
-
+"""Module containing function to save python object in json format"""
 import json
 
 
 def save_to_json_file(my_obj, filename):
-    '''
-    Writes object to text file using JSON
-    '''
-    if filename is None:
-        return
-    with open(filename, 'w', encoding='utf-8') as f:
-        json_var = json.dump(my_obj, f)
+    """Convert `my_obj` to json string and save to `filename`
+
+    Args:
+        my_obj: serializable object to convert to json
+        filename (str): file to save json string to
+    """
+    with open(filename, 'w') as f:
+        json.dump(my_obj, f)
